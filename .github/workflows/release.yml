@@ -30,6 +30,10 @@ jobs:
     - name: Build and package
       run: mvn -B --file pom.xml versions:set -DremoveSnapshot && mvn -B --file pom.xml clean package
 
+    - name: Artifact version
+      id: artifact-version
+      run: echo "ARTIFACT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" | tee -a "$GITHUB_OUTPUT"
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
